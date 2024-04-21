@@ -1,0 +1,30 @@
+version: '3.1'
+services:
+  app:
+    container_name: travel-assistant
+    image: trip-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    links:
+      - "postgres-service:postgres"
+    networks:
+      - app-db
+    environment:
+      - SERVER_PORT= 8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+    depends_on:
+      - postgres-service
+  postgres-service:
+    image: postgres
+    networks:
+      - app-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+networks:
+  app-db:
