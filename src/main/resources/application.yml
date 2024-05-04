@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: travel-assistant
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/travel
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
