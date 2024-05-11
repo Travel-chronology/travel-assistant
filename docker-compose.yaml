@@ -7,14 +7,14 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
+      - "8080:8080"
     links:
       - "postgres-service:postgres"
     networks:
       - app-db
     environment:
-      - SERVER_PORT= 8081
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-service:5431/travel
+      - SERVER_PORT= 8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-service:5431/postgres
     depends_on:
       - postgres-service
   postgres-service:
@@ -22,7 +22,7 @@ services:
     networks:
       - app-db
     ports:
-      - "5431:5432"
+      - "5432:5432"
     environment:
       POSTGRES_DB: travel
       POSTGRES_USER: postgres
