@@ -2,16 +2,16 @@
 
 --changeset UladzislauKholad:1
 --comment first migration
-CREATE TABLE public.customer(
-	id int not null,
+CREATE TABLE public.users(
+	id serial PRIMARY KEY,
+	username varchar(255) not null unique,
 	first_name varchar(255),
 	last_name varchar(255),
 	email varchar(255),
-	password varchar(255),
-	PRIMARY KEY (id)
+	password varchar(255) not null
 );
 
-insert into public.customer
-values (1, 'Uladzislau','kholad', '123@mail.ru','123'),
-       (2, 'Stepan','Ivanob', 'test@mail.ru','123123');
+insert into public.users (username, first_name, last_name, email, password)
+values ('nexer', 'Uladzislau','kholad', '123@mail.ru','123'),
+       ('razdva','Stepan','Ivanov', 'test@mail.ru','123123');
 --rollback truncate table customer;
