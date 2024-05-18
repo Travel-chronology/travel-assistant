@@ -1,5 +1,6 @@
 package by.nexer.travelassistant.controller;
 
+import by.nexer.travelassistant.controller.OpenAPI.UserApi;
 import by.nexer.travelassistant.model.entity.User;
 import by.nexer.travelassistant.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -11,17 +12,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UserApi {
     private final UserService userService;
-
     @GetMapping()
-    public List<User> getUsers() {
-        return userService.getAll();
+    public ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok(userService.getAll());
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping()

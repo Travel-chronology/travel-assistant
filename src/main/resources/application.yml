@@ -10,6 +10,8 @@ spring:
     password: postgres
     driverClassName: org.postgresql.Driver
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: none
       dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
