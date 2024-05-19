@@ -2,6 +2,7 @@ package by.nexer.travelassistant.controller.OpenAPI;
 
 import by.nexer.travelassistant.model.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +27,9 @@ public interface UserApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
-    ResponseEntity<User> getUser(Long id);
+    ResponseEntity<User> getUser(@Parameter(
+            description = "ID of user to be retrieved",
+            required = true) Long id);
 
     @Operation(
             summary = "Create user",
@@ -42,7 +45,9 @@ public interface UserApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
-    ResponseEntity<User> updateUser(Long id, User body);
+    ResponseEntity<User> updateUser(@Parameter(
+            description = "ID of user to be retrieved",
+            required = true) Long id, User body);
 
     @Operation(
             summary = "Delete user by id",
@@ -50,5 +55,7 @@ public interface UserApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
-    ResponseEntity<String> deleteUser(Long id);
+    ResponseEntity<String> deleteUser(@Parameter(
+            description = "ID of user to be retrieved",
+            required = true) Long id);
 }

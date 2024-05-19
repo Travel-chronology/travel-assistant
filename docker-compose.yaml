@@ -15,9 +15,11 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/postgres
     depends_on:
       - postgres-service
+
   postgres-service:
     container_name: postgres-db
-    image: postgres
+    image: postgres:15.2
+    restart: always
     networks:
       - app-db
     ports:
@@ -26,5 +28,25 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:7.1
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    networks:
+      - app-db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  local_pgdata:
+  pgadmin-data:
 networks:
   app-db:
