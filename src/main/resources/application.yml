@@ -15,11 +15,40 @@ spring:
       ddl-auto: none
       dialect: org.hibernate.dialect.PostgreSQLDialect
       format_sql: true
-
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8180/realms/external
+        registration:
+          keycloak:
+            client-id: travel-assistant-client
+            client-secret: 123123
+            scope: openid, profile, email
+            authorization-grant-type: authorization_code
+  keycloak:
+    realm: external
+    auth-server-url: http://localhost:8180/auth
+    resource: travel-assistant-client
+    credentials:
+      secret: 123123
+    public-client: true
+    ssl-required: none
 springdoc:
   api-docs:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
 server:
-  port: 8080
+  port: 8081
+
+logging:
+  level:
+    org:
+      springframework:
+        security: INFO
+#  pattern:
+#    console: %d{dd-MM-yyyy HH:mm:ss} %magenta([%thread]) %highlight(%-5level) %logger.%M - %msg%n
+
+

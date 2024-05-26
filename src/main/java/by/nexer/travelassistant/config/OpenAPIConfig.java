@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class OpenAPIConfiguration {
+public class OpenAPIConfig {
     @Bean
     public OpenAPI defineOpenApi() {
         Server server = new Server();
-        server.url("http://localhost:8080");
+        server.url("http://localhost:8081");
         server.description("Development");
 
         Contact myContact = new Contact();
