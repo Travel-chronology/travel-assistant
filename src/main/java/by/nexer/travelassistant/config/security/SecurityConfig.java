@@ -1,4 +1,4 @@
-package by.nexer.travelassistant.config;
+package by.nexer.travelassistant.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @RequiredArgsConstructor
 @Configuration
@@ -21,10 +20,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) ->
-                authz.requestMatchers(HttpMethod.GET, "/").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/admin/**").hasRole(ADMIN)
+                authz.requestMatchers(HttpMethod.GET, "/","/swagger-ui/**","/v3/api-docs/**","/login","/error").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/admin").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.GET, "/**").hasRole(USER)
-//                        .requestMatchers(HttpMethod.GET, "/admin-and-user/**").hasAnyRole(ADMIN,USER)
+//                        .requestMatchers(HttpMethod.GET,
+//                                "/api/admin-and-user/**").hasAnyRole(ADMIN,USER)
                         .anyRequest().authenticated());
 
         http.sessionManagement(sess -> sess.sessionCreationPolicy(
@@ -33,4 +33,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }

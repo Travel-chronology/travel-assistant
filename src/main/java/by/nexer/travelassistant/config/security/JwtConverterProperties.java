@@ -1,4 +1,4 @@
-package by.nexer.travelassistant.config;
+package by.nexer.travelassistant.config.security;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
