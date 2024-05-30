@@ -21,30 +21,26 @@ spring:
         jwt:
           issuer-uri: http://localhost:8180/realms/external
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8180/realms/external
+            authorization-uri: http://localhost:8180/realms/external/protocol/openid-connect/auth
+            token-uri: http://localhost:8180/realms/external/protocol/openid-connect/token
+            user-info-uri: http://localhost:8180/realms/external/protocol/openid-connect/userinfo
+#            user-name-attribute: id
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: travel-assistant-client
+            scope: openid, profile, email
+            authorization-grant-type: authorization_code
 jwt:
   auth:
     converter:
       resource-id: travel-assistant-client
       principal-attribute: principal_username
-
-#      client:
-#        provider:
-#          keycloak:
-#            issuer-uri: http://localhost:8180/realms/external
-#        registration:
-#          keycloak:
-#            client-id: travel-assistant-client
-#            client-secret: 123123
-#            scope: openid, profile, email
-#            authorization-grant-type: authorization_code
-#  keycloak:
-#    realm: external
-#    auth-server-url: http://localhost:8180/auth
-#    resource: travel-assistant-client
-#    credentials:
-#      secret: 123123
-#    public-client: true
-#    ssl-required: none
 springdoc:
   api-docs:
     path: /v3/api-docs

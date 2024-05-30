@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-public class UserController implements UserApi {
+public class UserController implements UserApi, SecuredRestController {
     private final UserService userService;
     @GetMapping()
     public ResponseEntity<List<User>> getUsers() {
