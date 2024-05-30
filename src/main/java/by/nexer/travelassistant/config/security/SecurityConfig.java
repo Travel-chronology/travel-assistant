@@ -56,10 +56,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain resourceServerFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(new AntPathRequestMatcher("/user"))
-                .hasRole("user")
-                .requestMatchers(new AntPathRequestMatcher("/"))
-                .permitAll()
+                .requestMatchers("/admin","/swagger-ui/index.html","/v3/api-docs/**").hasRole("app_admin")
+                .requestMatchers("/user").hasRole("app_user")
+                .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                 .anyRequest()
                 .authenticated());
         http.oauth2ResourceServer((oauth2) -> oauth2
