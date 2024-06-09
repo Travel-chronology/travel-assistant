@@ -33,5 +33,5 @@ public class TripEntity implements Serializable {
     private String endDate;
 
     @ManyToMany(mappedBy = "trips")
-    private Set<UserEntity> employees = new HashSet<>();
+    private Set<UserEntity> users = new HashSet<>();
 }
