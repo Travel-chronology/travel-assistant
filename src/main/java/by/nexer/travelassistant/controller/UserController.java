@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-public class UserController implements UserApi, SecuredRestController {
+public class UserController implements UserApi {
     private final UserService userService;
+
     @GetMapping()
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok(userService.getAll());

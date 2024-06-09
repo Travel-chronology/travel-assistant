@@ -8,14 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping
 public class MainController {
-
-    @GetMapping()
-    public String getPublicPage(){
-        return "Main page";
-    }
-
     @Operation(summary = "Admin page", security = @SecurityRequirement(name = "bearerAuth"))
     @GetMapping("/admin")
     public ResponseEntity<String> getAdminPage() {
