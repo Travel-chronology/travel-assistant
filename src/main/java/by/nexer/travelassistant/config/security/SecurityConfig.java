@@ -56,8 +56,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain resourceServerFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/admin", "/swagger-ui/index.html", "/v3/api-docs/**").hasRole("app_admin")
-                .requestMatchers("/users").hasRole("app_user")
+                .requestMatchers("api/v1/admin", "api/v1/swagger-ui/index.html", "api/v1/v3/api-docs/**").hasRole("app_admin")
+                .requestMatchers("api/v1/users").hasRole("app_user")
                 .requestMatchers("/index.html", "/").permitAll()
                 .anyRequest()
                 .authenticated());

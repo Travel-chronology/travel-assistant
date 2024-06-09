@@ -1,0 +1,37 @@
+package by.nexer.travelassistant.model.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "trips")
+@Getter
+@Setter
+@NoArgsConstructor
+public class TripEntity implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "start_date")
+    private String startDate;
+
+    @Column(name = "end_date")
+    private String endDate;
+
+    @ManyToMany(mappedBy = "trips")
+    private Set<UserEntity> employees = new HashSet<>();
+}

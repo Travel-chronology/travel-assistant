@@ -1,15 +1,16 @@
 package by.nexer.travelassistant.service;
-import by.nexer.travelassistant.model.entity.User;
+
+import by.nexer.travelassistant.model.entity.UserEntity;
 import java.util.List;
 
 public interface UserService {
-    List<User> getAll();
+    List<UserEntity> getAll();
 
-    User getUserById(Long id);
+    UserEntity getUserById(Long id);
 
-    User createUser(User user);
+    UserEntity createUser(UserEntity user);
 
-    User updateUser(Long id, User body);
+    UserEntity updateUser(Long id, UserEntity body);
 
     void deleteUserById(Long id);
 }

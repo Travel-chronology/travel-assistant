@@ -11,15 +11,12 @@ CREATE TABLE public.users (
     password varchar(255) not null
 );
 
-CREATE TABLE public.trip (
+CREATE TABLE public.trips (
     id serial PRIMARY KEY,
-    user_id int not null,
     title varchar(255),
     description text,
     start_date timestamp,
-    end_date timestamp,
-    FOREIGN KEY (user_id) REFERENCES public.users(id)
-);
+    end_date timestamp);
 
 CREATE TABLE public.place (
     id serial PRIMARY KEY,
@@ -29,18 +26,18 @@ CREATE TABLE public.place (
     country varchar(255),
     visit_date timestamp,
     photo_url varchar(255),
-    FOREIGN KEY (trip_id) REFERENCES public.trip(id)
+    FOREIGN KEY (trip_id) REFERENCES public.trips(id)
 );
 
 CREATE TABLE public.trip_participant (
     trip_id int not null,
     user_id int not null,
-    FOREIGN KEY (trip_id) REFERENCES public.trip(id),
+    FOREIGN KEY (trip_id) REFERENCES public.trips(id),
     FOREIGN KEY (user_id) REFERENCES public.users(id)
 );
 
 -- rollback statements
 --rollback drop table public.trip_participant;
 --rollback drop table public.place;
---rollback drop table public.trip;
+--rollback drop table public.trips;
 --rollback drop table public.users;

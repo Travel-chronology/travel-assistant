@@ -1,7 +1,7 @@
 package by.nexer.travelassistant.service.impl;
 
-import by.nexer.travelassistant.model.entity.User;
-import by.nexer.travelassistant.model.repository.UserRepository;
+import by.nexer.travelassistant.model.entity.UserEntity;
+import by.nexer.travelassistant.repository.UserRepository;
 import by.nexer.travelassistant.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,21 +14,21 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
-    public List<User> getAll() {
+    public List<UserEntity> getAll() {
         return userRepository.findAll();
     }
 
-    public User getUserById(Long id) {
-        Optional<User> optional = userRepository.findById(id);
+    public UserEntity getUserById(Long id) {
+        Optional<UserEntity> optional = userRepository.findById(id);
         return optional.orElseThrow(() -> new RuntimeException("User not found for id: " + id));
     }
 
-    public User createUser(User user) {
+    public UserEntity createUser(UserEntity user) {
         return userRepository.save(user);
     }
 
-    public User updateUser(Long id, User body){
-        User existingUser = userRepository.findById(id)
+    public UserEntity updateUser(Long id, UserEntity body){
+        UserEntity existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found for id: " + id));
 
         existingUser.setUserName(body.getUserName());
