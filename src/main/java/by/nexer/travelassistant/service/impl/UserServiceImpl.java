@@ -1,5 +1,6 @@
 package by.nexer.travelassistant.service.impl;
 
+import by.nexer.travelassistant.mapper.UserMapper;
 import by.nexer.travelassistant.model.entity.UserEntity;
 import by.nexer.travelassistant.repository.UserRepository;
 import by.nexer.travelassistant.service.UserService;
@@ -13,6 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     public List<UserEntity> getAll() {
         return userRepository.findAll();
@@ -27,7 +29,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    public UserEntity updateUser(Long id, UserEntity body){
+    public UserEntity updateUser(Long id, UserEntity body) {
         UserEntity existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found for id: " + id));
 

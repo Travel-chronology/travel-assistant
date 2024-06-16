@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@Tag(name = "Users", description = "The Users Api")
+@Tag(name = "Users", description = "Inner Api for admin")
 public interface UserApi {
     @Operation(
             summary = "Fetch all users",

@@ -28,7 +28,6 @@ spring:
             authorization-uri: http://localhost:8180/realms/external/protocol/openid-connect/auth
             token-uri: http://localhost:8180/realms/external/protocol/openid-connect/token
             user-info-uri: http://localhost:8180/realms/external/protocol/openid-connect/userinfo
-#            user-name-attribute: id
             user-name-attribute: preferred_username
         registration:
           keycloak:
@@ -36,11 +35,6 @@ spring:
             client-id: travel-assistant-client
             scope: openid, profile, email
             authorization-grant-type: authorization_code
-jwt:
-  auth:
-    converter:
-      resource-id: travel-assistant-client
-      principal-attribute: principal_username
 springdoc:
   api-docs:
     path: /v3/api-docs

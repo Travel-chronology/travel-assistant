@@ -56,15 +56,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain resourceServerFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/admin", "api/v1/swagger-ui/index.html", "api/v1/v3/api-docs/**").hasRole("app_admin")
-                .requestMatchers("/api/v1/users","/api/v1/trips").hasRole("app_user")
-                .requestMatchers("/index.html", "/").permitAll()
-                .anyRequest()
-                .authenticated());
-        http.oauth2ResourceServer((oauth2) -> oauth2
-                .jwt(Customizer.withDefaults()));
-        http.oauth2Login(Customizer.withDefaults())
-                .logout(logout -> logout.addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/"));
+                        .requestMatchers("/api/v1/admin", "/api/v1/swagger-ui/index.html", "/api/v1/v3/api-docs/**").hasRole("app_admin")
+                        .requestMatchers("/api/v1/users", "/api/v1/trips").hasRole("app_user")
+                        .requestMatchers("/index.html", "/").permitAll()
+                        .anyRequest().authenticated())
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+                .oauth2Login(Customizer.withDefaults())
+                .logout(logout -> logout.addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/"))
+                .csrf().disable();
         return http.build();
     }
 
@@ -79,15 +78,14 @@ public class SecurityConfig {
                 var oidcUserAuthority = (OidcUserAuthority) authority;
                 var userInfo = oidcUserAuthority.getUserInfo();
 
-                // Tokens can be configured to return roles under
-                // Groups or REALM ACCESS hence have to check both
                 if (userInfo.hasClaim(REALM_ACCESS_CLAIM)) {
                     var realmAccess = userInfo.getClaimAsMap(REALM_ACCESS_CLAIM);
                     var roles = (Collection<String>) realmAccess.get(ROLES_CLAIM);
+                    System.out.println("Roles from realm_access: " + roles); // Логирование ролей
                     mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
                 } else if (userInfo.hasClaim(GROUPS)) {
-                    Collection<String> roles = (Collection<String>) userInfo.getClaim(
-                            GROUPS);
+                    Collection<String> roles = (Collection<String>) userInfo.getClaim(GROUPS);
+                    System.out.println("Roles from groups: " + roles); // Логирование ролей
                     mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
                 }
             } else {
@@ -95,12 +93,13 @@ public class SecurityConfig {
                 Map<String, Object> userAttributes = oauth2UserAuthority.getAttributes();
 
                 if (userAttributes.containsKey(REALM_ACCESS_CLAIM)) {
-                    Map<String, Object> realmAccess = (Map<String, Object>) userAttributes.get(
-                            REALM_ACCESS_CLAIM);
+                    Map<String, Object> realmAccess = (Map<String, Object>) userAttributes.get(REALM_ACCESS_CLAIM);
                     Collection<String> roles = (Collection<String>) realmAccess.get(ROLES_CLAIM);
+                    System.out.println("Roles from realm_access: " + roles); // Логирование ролей
                     mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
                 }
             }
+            System.out.println("Mapped authorities: " + mappedAuthorities); // Логирование сформированных authorities
             return mappedAuthorities;
         };
     }
