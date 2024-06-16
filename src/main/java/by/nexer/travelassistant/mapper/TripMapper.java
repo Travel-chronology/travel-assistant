@@ -1,6 +1,7 @@
 package by.nexer.travelassistant.mapper;
 
-import by.nexer.travelassistant.dto.TripDTO;
+import by.nexer.travelassistant.dto.response.TripResponse;
+import by.nexer.travelassistant.dto.request.TripRequest;
 import by.nexer.travelassistant.model.entity.TripEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,11 +12,10 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TripMapper {
     @Mapping(source = "users", target = "users")
-    TripDTO toTripDTO(TripEntity tripEntity);
-    @Mapping(source = "users", target = "users")
-    TripEntity fromTripDTO(TripDTO tripDTO);
+    TripResponse fromEntity(TripEntity tripEntity);
+
+    TripEntity toEntity(TripRequest tripRequest);
 
     @Mapping(source = "users", target = "users")
-    List<TripDTO> toTripDTOList(List<TripEntity> tripEntities);
-
+    List<TripResponse> fromEntityList(List<TripEntity> tripEntities);
 }

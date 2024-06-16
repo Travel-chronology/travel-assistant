@@ -34,6 +34,11 @@ public class TripEntity implements Serializable {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @ManyToMany(mappedBy = "trips")
+    @ManyToMany
+    @JoinTable(
+            name = "trip_participant",
+            joinColumns = @JoinColumn(name = "trip_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private Set<UserEntity> users = new HashSet<>();
 }

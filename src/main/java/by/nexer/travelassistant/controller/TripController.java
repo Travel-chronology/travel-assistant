@@ -1,6 +1,7 @@
 package by.nexer.travelassistant.controller;
 
-import by.nexer.travelassistant.dto.TripDTO;
+import by.nexer.travelassistant.dto.response.TripResponse;
+import by.nexer.travelassistant.dto.request.TripRequest;
 import by.nexer.travelassistant.service.TripService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,22 +16,22 @@ public class TripController {
     private final TripService tripService;
 
     @GetMapping
-    public ResponseEntity<List<TripDTO>> getTrips(){
+    public ResponseEntity<List<TripResponse>> getTrips(){
        return ResponseEntity.ok(tripService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TripDTO> getTrip(@PathVariable Long id) {
+    public ResponseEntity<TripResponse> getTrip(@PathVariable Long id) {
         return ResponseEntity.ok(tripService.getTripById(id));
     }
 
     @PostMapping()
-    public ResponseEntity<TripDTO> createTrip(@RequestBody TripDTO user) {
-        return ResponseEntity.ok(tripService.createTrip(user));
+    public ResponseEntity<TripResponse> createTrip(@RequestBody TripRequest body) {
+        return ResponseEntity.ok(tripService.createTrip(body));
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<TripDTO> updateTrip(@PathVariable Long id, @RequestBody TripDTO body) {
+    public ResponseEntity<TripResponse> updateTrip(@PathVariable Long id, @RequestBody TripRequest body) {
         return ResponseEntity.ok(tripService.updateTrip(id, body));
     }
 
