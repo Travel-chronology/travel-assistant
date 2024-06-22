@@ -11,6 +11,7 @@ import by.nexer.travelassistant.service.TripService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.*;
 
 @Service
@@ -20,9 +21,9 @@ public class TripServiceImpl implements TripService {
     private final UserRepository userRepository;
     private final TripMapper tripMapper;
 
-    public List<TripResponse> getAll() {
-        Long userId = 1L;// todo request with id
-        List<TripEntity> trips = tripRepository.findAllTripsByParticipant(userId);
+    public List<TripResponse> getAll(Principal principal) {
+        String userEmail = principal.getName();
+        List<TripEntity> trips = tripRepository.findAllTripsByParticipant(userEmail);
         return tripMapper.fromEntityList(trips);
     }
 
@@ -32,13 +33,13 @@ public class TripServiceImpl implements TripService {
     }
 
 
-    public TripResponse createTrip(TripRequest body) {
-        Long userId = 1L; // TODO: request with id
+    public TripResponse createTrip(Principal principal, TripRequest body) {
+        String userEmail = principal.getName();
 
         TripEntity tripEntity = tripMapper.toEntity(body);
 
-        UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found for id: " + userId));
+        UserEntity userEntity = userRepository.findUserByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("User not found for user email: " + userEmail));
 
         tripEntity.getUsers().add(userEntity);
 
@@ -63,5 +64,27 @@ public class TripServiceImpl implements TripService {
 
     public void deleteTripById(Long id) {
         tripRepository.deleteById(id);
+    }
+
+    public void addMember(Long tripId, String email){
+        UserEntity userEntity = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found for email: " + email));
+
+        TripEntity tripEntity = tripRepository.findById(tripId)
+                .orElseThrow(() -> new RuntimeException("Trip not found for id: " + tripId));
+
+        tripEntity.getUsers().add(userEntity);
+        tripRepository.save(tripEntity);
+    }
+
+    public void deleteMemberById(Long tripId, Long userId) {
+        TripEntity tripEntity = tripRepository.findById(tripId)
+                .orElseThrow(() -> new RuntimeException("Trip not found for id: " + tripId));
+
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found for id: " + userId));
+
+        tripEntity.getUsers().remove(userEntity);
+        tripRepository.save(tripEntity);
     }
 }

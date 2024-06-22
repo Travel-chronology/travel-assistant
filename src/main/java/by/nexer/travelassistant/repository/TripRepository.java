@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface TripRepository extends JpaRepository<TripEntity, Long> {
-    @Query("SELECT t FROM TripEntity t JOIN t.users u WHERE u.id = :userId")
-    List<TripEntity> findAllTripsByParticipant(@Param("userId") Long userId);
+    @Query("SELECT t FROM TripEntity t JOIN t.users u WHERE u.email = :userEmail")
+    List<TripEntity> findAllTripsByParticipant(@Param("userEmail") String userEmail);
 
 }

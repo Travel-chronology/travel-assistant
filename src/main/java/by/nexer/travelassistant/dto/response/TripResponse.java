@@ -1,6 +1,5 @@
 package by.nexer.travelassistant.dto.response;
 
-import by.nexer.travelassistant.dto.response.UserResponse;
 import lombok.Getter;
 import lombok.Setter;
 
