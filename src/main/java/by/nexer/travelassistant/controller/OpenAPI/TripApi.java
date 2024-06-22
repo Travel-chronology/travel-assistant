@@ -2,9 +2,7 @@ package by.nexer.travelassistant.controller.OpenAPI;
 
 import by.nexer.travelassistant.dto.request.TripRequest;
 import by.nexer.travelassistant.dto.response.TripResponse;
-import by.nexer.travelassistant.model.entity.UserEntity;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;

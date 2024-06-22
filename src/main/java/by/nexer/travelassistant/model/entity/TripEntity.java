@@ -40,5 +40,5 @@ public class TripEntity implements Serializable {
             joinColumns = @JoinColumn(name = "trip_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private Set<UserEntity> users = new HashSet<>();
+    private Set<TravelAssistantUserEntity> users = new HashSet<>();
 }

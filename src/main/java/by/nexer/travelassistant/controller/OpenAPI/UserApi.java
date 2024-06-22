@@ -1,6 +1,6 @@
 package by.nexer.travelassistant.controller.OpenAPI;
 
-import by.nexer.travelassistant.model.entity.UserEntity;
+import by.nexer.travelassistant.model.entity.TravelAssistantUserEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,7 +19,7 @@ public interface UserApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
-    ResponseEntity<List<UserEntity>> getUsers();
+    ResponseEntity<List<TravelAssistantUserEntity>> getUsers();
 
     @Operation(
             summary = "Fetch user by id",
@@ -27,7 +27,7 @@ public interface UserApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
-    ResponseEntity<UserEntity> getUser(@Parameter(
+    ResponseEntity<TravelAssistantUserEntity> getUser(@Parameter(
             description = "ID of user to be retrieved",
             required = true) Long id);
 
@@ -37,7 +37,7 @@ public interface UserApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
-    ResponseEntity<UserEntity> createUser(UserEntity user);
+    ResponseEntity<TravelAssistantUserEntity> createUser(TravelAssistantUserEntity user);
 
     @Operation(
             summary = "Update user by id",
@@ -45,9 +45,9 @@ public interface UserApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
-    ResponseEntity<UserEntity> updateUser(@Parameter(
+    ResponseEntity<TravelAssistantUserEntity> updateUser(@Parameter(
             description = "ID of user to be retrieved",
-            required = true) Long id, UserEntity body);
+            required = true) Long id, TravelAssistantUserEntity body);
 
     @Operation(
             summary = "Delete user by id",

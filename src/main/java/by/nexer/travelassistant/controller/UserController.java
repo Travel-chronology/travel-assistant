@@ -1,7 +1,7 @@
 package by.nexer.travelassistant.controller;
 
 import by.nexer.travelassistant.controller.OpenAPI.UserApi;
-import by.nexer.travelassistant.model.entity.UserEntity;
+import by.nexer.travelassistant.model.entity.TravelAssistantUserEntity;
 import by.nexer.travelassistant.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,22 +16,22 @@ public class UserController implements UserApi {
     private final UserService userService;
 
     @GetMapping()
-    public ResponseEntity<List<UserEntity>> getUsers() {
+    public ResponseEntity<List<TravelAssistantUserEntity>> getUsers() {
         return ResponseEntity.ok(userService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> getUser(@PathVariable Long id) {
+    public ResponseEntity<TravelAssistantUserEntity> getUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping()
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
+    public ResponseEntity<TravelAssistantUserEntity> createUser(@RequestBody TravelAssistantUserEntity user) {
         return ResponseEntity.ok(userService.createUser(user));
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<UserEntity> updateUser(@PathVariable Long id, @RequestBody UserEntity body) {
+    public ResponseEntity<TravelAssistantUserEntity> updateUser(@PathVariable Long id, @RequestBody TravelAssistantUserEntity body) {
         return ResponseEntity.ok(userService.updateUser(id, body));
     }
 

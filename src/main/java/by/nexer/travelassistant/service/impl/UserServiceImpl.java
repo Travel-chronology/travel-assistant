@@ -1,7 +1,7 @@
 package by.nexer.travelassistant.service.impl;
 
 import by.nexer.travelassistant.mapper.UserMapper;
-import by.nexer.travelassistant.model.entity.UserEntity;
+import by.nexer.travelassistant.model.entity.TravelAssistantUserEntity;
 import by.nexer.travelassistant.repository.UserRepository;
 import by.nexer.travelassistant.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,28 +16,27 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public List<UserEntity> getAll() {
+    public List<TravelAssistantUserEntity> getAll() {
         return userRepository.findAll();
     }
 
-    public UserEntity getUserById(Long id) {
-        Optional<UserEntity> optional = userRepository.findById(id);
+    public TravelAssistantUserEntity getUserById(Long id) {
+        Optional<TravelAssistantUserEntity> optional = userRepository.findById(id);
         return optional.orElseThrow(() -> new RuntimeException("User not found for id: " + id));
     }
 
-    public UserEntity createUser(UserEntity user) {
+    public TravelAssistantUserEntity createUser(TravelAssistantUserEntity user) {
         return userRepository.save(user);
     }
 
-    public UserEntity updateUser(Long id, UserEntity body) {
-        UserEntity existingUser = userRepository.findById(id)
+    public TravelAssistantUserEntity updateUser(Long id, TravelAssistantUserEntity body) {
+        TravelAssistantUserEntity existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found for id: " + id));
 
         existingUser.setUserName(body.getUserName());
         existingUser.setFirstName(body.getFirstName());
         existingUser.setLastName(body.getLastName());
         existingUser.setEmail(body.getEmail());
-        existingUser.setPassword(body.getPassword());
 
         return userRepository.save(existingUser);
     }

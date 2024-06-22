@@ -3,8 +3,8 @@ package by.nexer.travelassistant.service.impl;
 import by.nexer.travelassistant.dto.response.TripResponse;
 import by.nexer.travelassistant.dto.request.TripRequest;
 import by.nexer.travelassistant.mapper.TripMapper;
+import by.nexer.travelassistant.model.entity.TravelAssistantUserEntity;
 import by.nexer.travelassistant.model.entity.TripEntity;
-import by.nexer.travelassistant.model.entity.UserEntity;
 import by.nexer.travelassistant.repository.TripRepository;
 import by.nexer.travelassistant.repository.UserRepository;
 import by.nexer.travelassistant.service.TripService;
@@ -38,10 +38,10 @@ public class TripServiceImpl implements TripService {
 
         TripEntity tripEntity = tripMapper.toEntity(body);
 
-        UserEntity userEntity = userRepository.findUserByEmail(userEmail)
+        TravelAssistantUserEntity travelAssistantUserEntity = userRepository.findUserByEmail(userEmail)
                 .orElseThrow(() -> new RuntimeException("User not found for user email: " + userEmail));
 
-        tripEntity.getUsers().add(userEntity);
+        tripEntity.getUsers().add(travelAssistantUserEntity);
 
         tripRepository.save(tripEntity);
 
@@ -67,13 +67,13 @@ public class TripServiceImpl implements TripService {
     }
 
     public void addMember(Long tripId, String email){
-        UserEntity userEntity = userRepository.findUserByEmail(email)
+        TravelAssistantUserEntity travelAssistantUserEntity = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found for email: " + email));
 
         TripEntity tripEntity = tripRepository.findById(tripId)
                 .orElseThrow(() -> new RuntimeException("Trip not found for id: " + tripId));
 
-        tripEntity.getUsers().add(userEntity);
+        tripEntity.getUsers().add(travelAssistantUserEntity);
         tripRepository.save(tripEntity);
     }
 
@@ -81,10 +81,10 @@ public class TripServiceImpl implements TripService {
         TripEntity tripEntity = tripRepository.findById(tripId)
                 .orElseThrow(() -> new RuntimeException("Trip not found for id: " + tripId));
 
-        UserEntity userEntity = userRepository.findById(userId)
+        TravelAssistantUserEntity travelAssistantUserEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found for id: " + userId));
 
-        tripEntity.getUsers().remove(userEntity);
+        tripEntity.getUsers().remove(travelAssistantUserEntity);
         tripRepository.save(tripEntity);
     }
 }
