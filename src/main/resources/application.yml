@@ -35,6 +35,21 @@ spring:
             client-id: travel-assistant-client
             scope: openid, profile, email
             authorization-grant-type: authorization_code
+  kafka:
+    bootstrap-servers: localhost:29092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        acks: 1
+        spring:
+          json:
+            add:
+              type:
+                headers: false
+topic:
+  send-google-calendar: send-google-calendar-event
+
 springdoc:
   api-docs:
     path: /v3/api-docs

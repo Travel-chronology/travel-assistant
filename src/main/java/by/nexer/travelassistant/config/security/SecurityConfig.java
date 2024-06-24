@@ -58,6 +58,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/admin", "/api/v1/swagger-ui/index.html", "/api/v1/v3/api-docs/**").hasRole("app_admin")
                         .requestMatchers("/api/v1/users", "/api/v1/trips").hasRole("app_user")
+                        .requestMatchers("/api/v1/calendar/**").authenticated()
                         .requestMatchers("/index.html", "/").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
