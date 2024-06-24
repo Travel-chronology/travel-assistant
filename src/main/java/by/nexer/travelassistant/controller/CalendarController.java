@@ -2,9 +2,12 @@ package by.nexer.travelassistant.controller;
 
 import by.nexer.travelassistant.messaging.event.TripSendEvent;
 import by.nexer.travelassistant.messaging.producer.KafkaMessagingProducer;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/calendar")
@@ -12,10 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class CalendarController {
     private final KafkaMessagingProducer kafkaMessagingProducer;
 
+    @Operation(
+            summary = "Send trip Async",
+            description = "Send trip Async in google calendar via kafka")
     @PostMapping("/event")
     public void createEvent(@RequestParam String summary, @RequestParam String description,
-                            @RequestParam  String startDate,
-                            @RequestParam String endDate) throws Exception {
+                            @RequestParam
+                            @Parameter(description = "Format yyyy-MM-dd'T'HH:mm:ss", example = "2024-06-26T10:00:00-07:00")
+                            String startDate,
+                            @RequestParam
+                            @Parameter(description = "Format yyyy-MM-dd'T'HH:mm:ss", example = "2024-06-27T10:00:00-07:00")
+                            String endDate) throws Exception {
 
         TripSendEvent tripSendEvent = new TripSendEvent();
         tripSendEvent.setDescription(description);
