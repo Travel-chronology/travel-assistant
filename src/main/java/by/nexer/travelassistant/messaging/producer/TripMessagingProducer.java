@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class KafkaMessagingProducer {
+public class TripMessagingProducer {
 
     @Value("${topic.send-google-calendar}")
     private String sendClientTopic;

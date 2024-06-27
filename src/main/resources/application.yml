@@ -49,6 +49,7 @@ spring:
                 headers: false
 topic:
   send-google-calendar: send-google-calendar-event
+  send-notification-email: send-notification-email-event
 
 springdoc:
   api-docs:
