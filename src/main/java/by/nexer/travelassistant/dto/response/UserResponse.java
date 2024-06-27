@@ -1,17 +1,14 @@
-package by.nexer.travelassistant.dto;
+package by.nexer.travelassistant.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
 
 @Getter
 @Setter
-public class UserDTO {
+public class UserResponse {
     private Long id;
-    private Set<TripDTO> users;
     private String userName;
-    private String password;
     private String firstName;
     private String lastName;
     private String email;

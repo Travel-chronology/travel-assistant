@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,11 +29,16 @@ public class TripEntity implements Serializable {
     private String description;
 
     @Column(name = "start_date")
-    private String startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private String endDate;
+    private LocalDate endDate;
 
-    @ManyToMany(mappedBy = "trips")
-    private Set<UserEntity> users = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "trip_participant",
+            joinColumns = @JoinColumn(name = "trip_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<TravelAssistantUserEntity> users = new HashSet<>();
 }

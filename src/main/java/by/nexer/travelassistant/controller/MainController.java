@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class MainController {
     @Operation(summary = "Admin page", security = @SecurityRequirement(name = "bearerAuth"))
-    @GetMapping("/admin")
+    @GetMapping("/api/v1/admin")
     public ResponseEntity<String> getAdminPage() {
         return ResponseEntity.ok("Admin page");
     }

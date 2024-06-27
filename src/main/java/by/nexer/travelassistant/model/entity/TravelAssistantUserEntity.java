@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserEntity implements Serializable {
+public class TravelAssistantUserEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +24,8 @@ public class UserEntity implements Serializable {
     @Column(name = "user_name", unique = true, nullable = false)
     private String userName;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Column(name = "keycloak_id", unique = true, nullable = false)
+    private String keycloakId;
 
     @Column(name = "first_name")
     private String firstName;

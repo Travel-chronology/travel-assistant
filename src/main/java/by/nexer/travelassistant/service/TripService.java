@@ -1,16 +1,23 @@
 package by.nexer.travelassistant.service;
 
-import by.nexer.travelassistant.dto.TripDTO;
+import by.nexer.travelassistant.dto.response.TripResponse;
+import by.nexer.travelassistant.dto.request.TripRequest;
+
+import java.security.Principal;
 import java.util.List;
 
 public interface TripService {
-    List<TripDTO> getAll();
+    List<TripResponse> getAll(Principal principal);
 
-    TripDTO getTripById(Long id);
+    TripResponse getTripById(Long id);
 
-    TripDTO createTrip(TripDTO user);
+    TripResponse createTrip(Principal principal, TripRequest body);
 
-    TripDTO updateTrip(Long id, TripDTO body);
+    TripResponse updateTrip(Long id, TripRequest body);
 
     void deleteTripById(Long id);
+
+    void addMember(Long tripId, String email);
+
+    void deleteMemberById(Long tripId, Long userId);
 }

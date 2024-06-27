@@ -5,10 +5,10 @@
 CREATE TABLE public.users (
     id serial PRIMARY KEY,
     user_name varchar(255) not null unique,
+    keycloak_id varchar(255) unique,
     first_name varchar(255),
     last_name varchar(255),
-    email varchar(255),
-    password varchar(255) not null
+    email varchar(255)
 );
 
 CREATE TABLE public.trips (
